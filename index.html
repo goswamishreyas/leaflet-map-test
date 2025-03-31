@@ -18,11 +18,19 @@
         }).addTo(map);
 
         // Load GeoJSON layer
-        fetch('https://raw.githubusercontent.com/goswamishreyas/leaflet-map-test/main/data/Fields.geojson')
-            .then(response => response.json())
-            .then(data => {
-                L.geoJSON(data).addTo(map);
-            });
+        fetch('https://raw.githubusercontent.com/goswamishreyas/leaflet-map-test/main/data/Fields.geojson', {
+            headers: { 'Accept': 'application/json' } // Ensures GitHub sends it as JSON
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            L.geoJSON(data).addTo(map);
+        })
+        .catch(error => console.error("Error loading GeoJSON:", error));
     </script>
 </body>
 </html>
