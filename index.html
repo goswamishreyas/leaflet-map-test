@@ -18,7 +18,7 @@
         }).addTo(map);
 
         // Load GeoJSON layer
-        fetch('data/Fields.geojson')
+        fetch('https://raw.githubusercontent.com/goswamishreyas/leaflet-map/main/data/Fields.geojson')
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data).addTo(map);
